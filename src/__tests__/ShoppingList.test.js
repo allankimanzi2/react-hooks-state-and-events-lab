@@ -25,10 +25,16 @@ test("displays only items that match the selected category", () => {
   });
 
   expect(container.querySelector(".Items").children).toHaveLength(2);
+  expect(screen.getByText("Yogurt")).toBeInTheDocument();
+  expect(screen.getByText("String Cheese")).toBeInTheDocument();
+  expect(screen.queryByText("Pomegranate")).not.toBeInTheDocument();
+  expect(screen.queryByText("Lettuce")).not.toBeInTheDocument();
+
 
   fireEvent.change(screen.getByRole("combobox"), {
     target: { value: "Dessert" },
   });
 
   expect(container.querySelector(".Items").children).toHaveLength(1);
+  expect(screen.getByText("Cookies")).toBeInTheDocument();
 });
